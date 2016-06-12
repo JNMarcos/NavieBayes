@@ -31,9 +31,7 @@ public class Main {
 			}
 		}
 		BufferedReader br = new BufferedReader(arquivoEntradaImage);
-		//for(int i=0; i<258; i++){                                  //Pular cabeçalho do weka
-			//entradas = br.readLine();
-		//}
+		
 		meioBase = 0;
 		while(br.ready()){                                             //Ler enquanto houver linhas			
 			ArrayList<Integer> vetorInt = new ArrayList();
@@ -57,38 +55,6 @@ public class Main {
 		}
 		
 		Apredizagem.media(lista, meioBase, porcentagem);
-		
-		///////////////////////////////////////Classificação/////////////////////////////////
-		
-		/*entradas = null;
-		arquivoEntradaImage = new FileReader("dataBase.txt");                 //Ler Arquivo
-		lista = new ArrayList();                           //Matriz com os Dados 
-		
-		
-		
-		br = new BufferedReader(arquivoEntradaImage);
-		for(int i=0; i<258; i++){                                  //Pular cabeçalho do weka
-			entradas = br.readLine();
-		}
-		
-		while(br.ready()){                                             //Ler enquanto houver linhas			
-			ArrayList<Integer> vetorInt = new ArrayList();
-			entradas = br.readLine();                                  //ler linha
-			vetorStr = entradas.split(",");                            //dividir pela virgula e colocar no vetor a linha
-	
-			for(int i=0; i<=256; i++){
-				if(i==256){                                            //na pos 256 substituir classe por numero
-					if(vetorStr[i].contains("cifar_8")){
-						vetorInt.add(0);
-					}else if(vetorStr[i].contains("cifar_3")){
-						vetorInt.add(1);
-					}
-				}else{
-				vetorInt.add(Integer.parseInt(vetorStr[i]));
-				}
-			}			
-			lista.add(vetorInt);				
-		}*/
 		
 		Classificador.classificador(lista, meioBase, porcentagem);
 		
