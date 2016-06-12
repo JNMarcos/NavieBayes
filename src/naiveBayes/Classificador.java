@@ -8,6 +8,7 @@ public class Classificador {
 	static int contador2;
 	static int contadorClassificao1;
 	static int contadorClassificao2;
+	static int acerto;
 	
 	public static void classificador(ArrayList<ArrayList<Integer>> data, int meioBase, int porcentagem){
 		double[] densidade1 = new double[255];
@@ -21,6 +22,8 @@ public class Classificador {
 		contadorClassificao2 = 0;
 		contador1 = 0;
 		contador2 = 0;
+	    acerto = 0;
+	    
 		double probabilidade1;
 		double probabilidade2;
 		
@@ -32,7 +35,7 @@ public class Classificador {
 				contador1++;
 			}else if(data.get(i).get(256) == 1){
 				contador2++;
-				System.out.println(contador1);
+				
 			}
 			
 			for(int j=0; j<255; j++){
@@ -60,19 +63,24 @@ public class Classificador {
 			
 			if(probabilidade1 > probabilidade2){
 				contadorClassificao1++;
+				if(data.get(i).get(256) == 0){
+					acerto++;
+				}
 			}else{
 				contadorClassificao2++;
+				if(data.get(i).get(256) == 1){
+					acerto++;
+				}
 				
 			}
 		}
 		
-		for(int i=(data.size()*porcentagem)/100; i<data.size(); i++){
+		for(int i=(((data.size()-meioBase)*porcentagem)/100)+meioBase; i<data.size(); i++){
 			probabilidade1 = 1f;
 			probabilidade2 = 1f;
 			
 			if(data.get(i).get(256) == 0){
 				contador1++;
-				
 			}else if(data.get(i).get(256) == 1){
 				contador2++;
 			}
@@ -99,12 +107,28 @@ public class Classificador {
 			}
 			
 			probabilidade2 = probabilidade2 * Apredizagem.probabilidadePriori2;
+			
+			if(probabilidade1 > probabilidade2){
+				contadorClassificao1++;
+				if(data.get(i).get(256) == 0){
+					acerto++;
+				}
+			}else{
+				contadorClassificao2++;
+				if(data.get(i).get(256) == 1){
+					acerto++;
+				}
+				
+			}
 		}
+		
+		double taxaAcerto = ((double)acerto/(contador1+contador2))*100;
 		
 		System.out.printf("Classes A = %d\n",contadorClassificao1);
 		System.out.printf("Classes B = %d\n",contadorClassificao2);
 		System.out.printf("Real A= %d\n", contador1);
 		System.out.printf("Real B = %d\n",contador2);
+		System.out.printf("Taxa de Acerto = %.2f", taxaAcerto);
 		
 		}
 }

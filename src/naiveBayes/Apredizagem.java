@@ -36,7 +36,7 @@ public class Apredizagem {
 			for(int j=0; j<255; j++){
 				if(data.get(i).get(256) == 0 && i<(meioBase*porcentagem)/100){
 					soma1[j] += data.get(i).get(j);		
-				}else if(data.get(i).get(256) == 1 && i<(data.size()*porcentagem)/100){
+				}else if(data.get(i).get(256) == 1 && i>(((data.size()-meioBase)*porcentagem)/100)+meioBase){
 					soma2[j] += data.get(i).get(j);
 				}
 			}
@@ -65,7 +65,7 @@ public class Apredizagem {
 			for(int j=0; j<255; j++){
 				if(data.get(i).get(256) == 0 && i<(meioBase*porcentagem)/100){
 					somatorio1[j] +=  Math.pow((data.get(i).get(j) - media1[j]), 2);
-				}else if(data.get(i).get(256) == 1 && i<(data.size()*porcentagem)/100){
+				}else if(data.get(i).get(256) == 1 && i>(((data.size()-meioBase)*porcentagem)/100)+meioBase){
 					somatorio2[j] +=  Math.pow((data.get(i).get(j) - media2[j]), 2);
 				}
 			}
