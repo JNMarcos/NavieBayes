@@ -1,10 +1,7 @@
 package naiveBayes;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,15 +11,16 @@ public class Main {
 	public static void main(String[] args) throws IOException{
 		String entradas = null;
 		FileReader arquivoEntradaImage = new FileReader("aprendizagem.txt");                 //Ler Arquivo
-		ArrayList<ArrayList<Integer>> lista = new ArrayList();                           //Matriz com os Dados 
+		ArrayList<ArrayList<Integer>> lista = new ArrayList<ArrayList<Integer>>();                           //Matriz com os Dados 
 		String[] vetorStr;
 		int meioBase;
 		int porcentagem = 0;
+		Scanner scanner = null;
 		
 		boolean condicao = true;
 		while(condicao){
-			System.out.println("Porcentagem da base a ser usado na aprendizagem (0% a 99%):");
-			Scanner scanner = new Scanner(System.in);
+			System.out.println("Porcentagem da base a ser usado na aprendizagem (1% a 99%):");
+			scanner = new Scanner(System.in);
 			porcentagem = scanner.nextInt();
 			if(porcentagem>0 && porcentagem<100){
 				condicao=false;
@@ -30,11 +28,13 @@ public class Main {
 				System.out.println("Numero inválido.");
 			}
 		}
+		//fecha scanner
+		scanner.close();
 		BufferedReader br = new BufferedReader(arquivoEntradaImage);
 		
 		meioBase = 0;
 		while(br.ready()){                                             //Ler enquanto houver linhas			
-			ArrayList<Integer> vetorInt = new ArrayList();
+			ArrayList<Integer> vetorInt = new ArrayList<Integer>();
 			entradas = br.readLine();                                  //ler linha
 			vetorStr = entradas.split(",");                            //dividir pela virgula e colocar no vetor a linha
 	        
@@ -56,8 +56,9 @@ public class Main {
 		
 		Apredizagem.media(lista, meioBase, porcentagem);
 		
-		Classificador.classificador(lista, meioBase, porcentagem);
+		Classificador.classificador(lista, meioBase, porcentagem);	
 		
-		
+		//fecha o fluxo de dados
+		br.close();
 	}
 }
