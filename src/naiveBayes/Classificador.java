@@ -6,9 +6,10 @@ import java.util.ArrayList;
 public class Classificador {
 	static int contador1;
 	static int contador2;
-	static int contadorClassificao1;
-	static int contadorClassificao2;
-	static int acerto;
+	static int contadorClassificacao1;
+	static int contadorClassificacao2;
+	static int acerto1;
+	static int acerto2;
 	
 	public static void classificador(ArrayList<ArrayList<Integer>> data, int meioBase, int porcentagem){
 		double[] densidade1 = new double[255];
@@ -18,11 +19,12 @@ public class Classificador {
 		double[] desvio1 = Apredizagem.desvio1;;
 		double[] desvio2 = Apredizagem.desvio2;
 
-		contadorClassificao1 = 0;
-		contadorClassificao2 = 0;
+		contadorClassificacao1 = 0;
+		contadorClassificacao2 = 0;
 		contador1 = 0;
 		contador2 = 0;
-	    acerto = 0;
+	    acerto1 = 0;
+	    acerto2 = 0;
 	    
 		double probabilidade1;
 		double probabilidade2;
@@ -62,14 +64,14 @@ public class Classificador {
 			probabilidade2 = probabilidade2 * Apredizagem.probabilidadePriori2;
 			
 			if(probabilidade1 > probabilidade2){
-				contadorClassificao1++;
+				contadorClassificacao1++;
 				if(data.get(i).get(256) == 0){
-					acerto++;
+					acerto1++;
 				}
 			}else{
-				contadorClassificao2++;
+				contadorClassificacao2++;
 				if(data.get(i).get(256) == 1){
-					acerto++;
+					acerto2++;
 				}
 				
 			}
@@ -109,26 +111,27 @@ public class Classificador {
 			probabilidade2 = probabilidade2 * Apredizagem.probabilidadePriori2;
 			
 			if(probabilidade1 > probabilidade2){
-				contadorClassificao1++;
+				contadorClassificacao1++;
 				if(data.get(i).get(256) == 0){
-					acerto++;
+					acerto1++;
 				}
 			}else{
-				contadorClassificao2++;
+				contadorClassificacao2++;
 				if(data.get(i).get(256) == 1){
-					acerto++;
+					acerto2++;
 				}
 				
 			}
 		}
 		
-		double taxaAcerto = ((double)acerto/(contador1+contador2))*100;
+		double taxaAcerto = ((double)(acerto1 + acerto2)/(contador1+contador2))*100;
 		
-		System.out.printf("Classes A = %d\n",contadorClassificao1);
-		System.out.printf("Classes B = %d\n",contadorClassificao2);
-		System.out.printf("Real A= %d\n", contador1);
-		System.out.printf("Real B = %d\n",contador2);
-		System.out.printf("Taxa de Acerto = %.2f", taxaAcerto);
-		
+		System.out.println("============Matriz de Confusão============");
+	    System.out.println("                         Classe Prevista");
+	    System.out.println("                         Classe-1       Classe-2");
+	    System.out.printf("Classe real    Classe-1 |  %d               %d\n",acerto1, (contadorClassificacao1-acerto1) );
+	    System.out.printf("               Classe-2 |  %d               %d\n",(contadorClassificacao2-acerto2),acerto2 );
+		System.out.printf("\n\nTaxa de Acerto = %.2f\n", taxaAcerto);
+		System.out.printf("If-Measure = %.2f", IfMeasure.ifMeasure(acerto1, contadorClassificacao2-acerto2, contadorClassificacao1-acerto1));
 		}
 }

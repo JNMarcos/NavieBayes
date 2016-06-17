@@ -15,7 +15,7 @@ public class Main {
 		String entradas = null;
 		FileReader arquivoEntradaImage = new FileReader("aprendizagem.txt");                 //Ler Arquivo
 		ArrayList<ArrayList<Integer>> lista = new ArrayList();                           //Matriz com os Dados 
-		String[] vetorStr;
+		String[] vetorStr;		
 		int meioBase;
 		int porcentagem = 0;
 		
@@ -33,13 +33,13 @@ public class Main {
 		BufferedReader br = new BufferedReader(arquivoEntradaImage);
 		
 		meioBase = 0;
-		while(br.ready()){                                             //Ler enquanto houver linhas			
+		while(br.ready()){                                             			
 			ArrayList<Integer> vetorInt = new ArrayList();
-			entradas = br.readLine();                                  //ler linha
-			vetorStr = entradas.split(",");                            //dividir pela virgula e colocar no vetor a linha
+			entradas = br.readLine();                                  
+			vetorStr = entradas.split(",");                            
 	        
 			for(int i=0; i<=256; i++){
-				if(i==256){                                            //na pos 256 substituir classe por numero
+				if(i==256){                                            
 					if(vetorStr[i].contains("cifar_8")){
 						vetorInt.add(0);
 						meioBase++;
