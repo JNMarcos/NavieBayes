@@ -13,11 +13,13 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException{
 		String entradas = null;
-		FileReader arquivoEntradaImage = new FileReader("aprendizagem.txt");                 //Ler Arquivo
+		FileReader arquivoEntradaImage = new FileReader("dataBase(Aviao-Carro).txt");                 //Ler Arquivo
 		ArrayList<ArrayList<Integer>> lista = new ArrayList();                           //Matriz com os Dados 
 		String[] vetorStr;		
 		int meioBase;
 		int porcentagem = 0;
+		
+		
 		
 		boolean condicao = true;
 		while(condicao){
@@ -32,6 +34,10 @@ public class Main {
 		}
 		BufferedReader br = new BufferedReader(arquivoEntradaImage);
 		
+		for(int i=0; i<259; i++){
+			br.readLine();
+		}
+		
 		meioBase = 0;
 		while(br.ready()){                                             			
 			ArrayList<Integer> vetorInt = new ArrayList();
@@ -40,10 +46,10 @@ public class Main {
 	        
 			for(int i=0; i<=256; i++){
 				if(i==256){                                            
-					if(vetorStr[i].contains("cifar_8")){
+					if(vetorStr[i].contains("cifar_0")){
 						vetorInt.add(0);
 						meioBase++;
-					}else if(vetorStr[i].contains("cifar_3")){
+					}else if(vetorStr[i].contains("cifar_1")){
 						vetorInt.add(1);
 					}
 				}else{

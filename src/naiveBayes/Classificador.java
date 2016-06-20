@@ -100,11 +100,11 @@ public class Classificador {
 				probabilidade1 = probabilidade1 + Math.log(densidade1[a]);
 				}
 			}
-		    probabilidade1 = probabilidade1 * Apredizagem.probabilidadePriori1;
+		    probabilidade1 = Math.log(probabilidade1) + Apredizagem.probabilidadePriori1;
 		    
 			for(int a=0 ; a< 255; a++){
 				if(densidade2[a] != 0.0){
-				probabilidade2 = probabilidade2 + Math.log(densidade2[a]);
+				probabilidade2 = Math.log(probabilidade2) + Math.log(densidade2[a]);
 				}
 			}
 			
@@ -128,9 +128,9 @@ public class Classificador {
 		
 		System.out.println("============Matriz de Confusão============");
 	    System.out.println("                         Classe Prevista");
-	    System.out.println("                         Classe-1       Classe-2");
-	    System.out.printf("Classe real    Classe-1 |  %d               %d\n",acerto1, (contadorClassificacao1-acerto1) );
-	    System.out.printf("               Classe-2 |  %d               %d\n",(contadorClassificacao2-acerto2),acerto2 );
+	    System.out.println("                         1-Aviao       2-Carro");
+	    System.out.printf("Classe real    1-Aviao |  %d               %d\n",acerto1, (contadorClassificacao1-acerto1) );
+	    System.out.printf("               2-Carro |  %d               %d\n",(contadorClassificacao2-acerto2),acerto2 );
 		System.out.printf("\n\nTaxa de Acerto = %.2f\n", taxaAcerto);
 		System.out.printf("If-Measure = %.2f", IfMeasure.ifMeasure(acerto1, contadorClassificacao2-acerto2, contadorClassificacao1-acerto1));
 		}
